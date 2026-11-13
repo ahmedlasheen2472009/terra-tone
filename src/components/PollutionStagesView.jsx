@@ -1453,8 +1453,10 @@ export function PollutionStagesView({
           {speechSupported && (
             <button
               type="button"
-              className={`btn-speak-summary ${isSpeaking ? 'speaking' : ''}`}
+              className={`btn-speech btn-speak-summary ${isSpeaking ? 'speaking' : ''}`}
               onClick={handleToggleSpeech}
+              aria-pressed={isSpeaking}
+              aria-label={isSpeaking ? t.stopSpeakingBtn : t.readSummaryBtn}
             >
               {isSpeaking ? <VolumeX className="icon-sm" aria-hidden="true" /> : <Volume2 className="icon-sm" aria-hidden="true" />}
               <span>{isSpeaking ? t.stopSpeakingBtn : t.readSummaryBtn}</span>
