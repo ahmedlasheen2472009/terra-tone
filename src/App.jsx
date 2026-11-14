@@ -25,12 +25,32 @@ import { AlertCircle, RefreshCw, Wind, Droplets, Sprout, Thermometer } from 'luc
 export default function App() {
   // 1. Accessibility & Globalization States
   const [lang, setLang] = useState('en');
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem('terra-tone-theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [isLargeText, setIsLargeText] = useState(false);
   const [showTable, setShowTable] = useState(false);
   const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState(false);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   const [announceDuringPlayback, setAnnounceDuringPlayback] = useState(false);
+
+  // Toggle Theme handler
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem('terra-tone-theme', next);
+      } catch {}
+      return next;
+    });
+  }, []);
 
   // Top-level Mode Tab: 'air' | 'water' | 'soil' | 'temperature'
   const [activeMode, setActiveMode] = useState('air');
@@ -59,14 +79,19 @@ export default function App() {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   }, [lang]);
 
-  // Sync Body High Contrast attribute
+  // Sync HTML / Body Theme & High Contrast attribute
   useEffect(() => {
-    if (isHighContrast) {
-      document.body.setAttribute('data-theme', 'high-contrast');
-    } else {
-      document.body.removeAttribute('data-theme');
+    const activeTheme = isHighContrast ? 'high-contrast' : theme;
+    document.documentElement.setAttribute('data-theme', activeTheme);
+    document.body.setAttribute('data-theme', activeTheme);
+    const metaColor = document.getElementById('meta-theme-color');
+    if (metaColor) {
+      metaColor.setAttribute(
+        'content',
+        activeTheme === 'light' ? '#f1f5f9' : (activeTheme === 'high-contrast' ? '#000000' : '#070a13')
+      );
     }
-  }, [isHighContrast]);
+  }, [theme, isHighContrast]);
 
   // Sync Body Large Text attribute
   useEffect(() => {
@@ -270,6 +295,8 @@ export default function App() {
       <Header
         lang={lang}
         onToggleLang={() => setLang(prev => (prev === 'en' ? 'ar' : 'en'))}
+        theme={theme}
+        onToggleTheme={toggleTheme}
         isHighContrast={isHighContrast}
         onToggleHighContrast={() => setIsHighContrast(prev => !prev)}
         isLargeText={isLargeText}
@@ -310,6 +337,7 @@ export default function App() {
         {activeMode !== 'temperature' ? (
           <PollutionStagesView
             lang={lang}
+            theme={theme}
             pollution={pollution}
             locationA={pollutionLocA}
             onSelectLocationA={setPollutionLocA}
@@ -358,6 +386,7 @@ export default function App() {
             <div className="grid-two-columns">
               <MapPicker
                 lang={lang}
+                theme={theme}
                 locationA={locationA}
                 onSelectLocationA={setLocationA}
                 locationB={locationB}
@@ -392,6 +421,7 @@ export default function App() {
               ) : (
                 <TimelineChart
                   lang={lang}
+                  theme={theme}
                   dataA={dataA}
                   dataB={dataB}
                   statsA={statsA}

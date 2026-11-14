@@ -45,6 +45,7 @@ function getHeatColor(normalized) {
 
 export function MapPicker({
   lang = 'en',
+  theme = 'dark',
   locationA,
   onSelectLocationA,
   locationB,
@@ -66,6 +67,7 @@ export function MapPicker({
 
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const baseTileLayerRef = useRef(null);
   const gibsTileLayerRef = useRef(null);
   const markerARef = useRef(null);
   const markerBRef = useRef(null);
@@ -138,12 +140,18 @@ export function MapPicker({
       attributionControl: true
     });
 
-    // Dark Matter Base Layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; CARTO &copy; OpenStreetMap',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(map);
+    // Carto Basemap (Dark Matter in dark mode, Positron in light mode for eye comfort)
+    const baseLayer = L.tileLayer(
+      theme === 'light'
+        ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '&copy; CARTO &copy; OpenStreetMap',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }
+    ).addTo(map);
+    baseTileLayerRef.current = baseLayer;
 
     mapInstanceRef.current = map;
 
@@ -171,6 +179,15 @@ export function MapPicker({
     observer.observe(mapContainerRef.current);
     return () => observer.disconnect();
   }, []);
+
+  // Update Basemap tile layer when theme toggles
+  useEffect(() => {
+    if (!baseTileLayerRef.current) return;
+    const url = theme === 'light'
+      ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    baseTileLayerRef.current.setUrl(url);
+  }, [theme]);
 
   // Update NASA GIBS Tile Layer
   useEffect(() => {

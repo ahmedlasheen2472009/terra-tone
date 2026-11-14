@@ -1,12 +1,13 @@
-# Earth Jukebox 🌍🎵
-**The Earth Information Jukebox — NASA Space Apps Challenge**
+# Terra-Tone 🌍🎵
+**NASA Earth Environmental Data Sonification & Visual Explorer — NASA Space Apps Challenge**
 
-An interactive, production-ready web application that pairs NASA Earth environmental data with real-time harmonic sonification and dynamic visuals, empowering people who are blind, low-vision, or sighted to explore multi-decadal climate and environmental trends by listening.
+An interactive, production-ready web application that pairs NASA Earth environmental data and NASA GIBS satellite frames with real-time harmonic sonification and dynamic visuals, empowering people who are blind, low-vision, or sighted to explore multi-decadal climate and environmental trends by listening. Includes an eye-comfort dual theme system (Dark Space Mode & Soft Eye-Comfort Light Mode).
 
 ![NASA Space Apps Challenge](https://img.shields.io/badge/NASA%20Space%20Apps-The%20Earth%20Information%20Jukebox-0284c7?style=for-the-badge)
 ![Zero Backend](https://img.shields.io/badge/Architecture-100%25%20Client--Side-10b981?style=for-the-badge)
 ![Web Audio API](https://img.shields.io/badge/Audio-Pure%20Web%20Audio%20API-f97316?style=for-the-badge)
 ![WCAG AAA](https://img.shields.io/badge/Accessibility-WCAG%20AAA%20Compliant-a855f7?style=for-the-badge)
+![Dual Theme](https://img.shields.io/badge/UI-Dark%20%26%20Light%20Eye--Comfort-38bdf8?style=for-the-badge)
 
 ---
 

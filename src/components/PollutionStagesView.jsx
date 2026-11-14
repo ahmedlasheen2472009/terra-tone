@@ -77,6 +77,7 @@ const STAGE_ICONS = {
 
 export function PollutionStagesView({
   lang = 'en',
+  theme = 'dark',
   pollution,
   locationA,
   onSelectLocationA,
@@ -158,6 +159,7 @@ export function PollutionStagesView({
   // Leaflet refs
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const baseTileLayerRef = useRef(null);
   const gibsTileLayerRef = useRef(null);
   const gibsLayerAnimIdRef = useRef(null);
   const markerARef = useRef(null);
@@ -182,12 +184,18 @@ export function PollutionStagesView({
       attributionControl: true
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; CARTO &copy; OpenStreetMap',
-      subdomains: 'abcd',
-      maxZoom: 19,
-      crossOrigin: 'anonymous'
-    }).addTo(map);
+    const baseLayer = L.tileLayer(
+      theme === 'light'
+        ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '&copy; CARTO &copy; OpenStreetMap',
+        subdomains: 'abcd',
+        maxZoom: 19,
+        crossOrigin: 'anonymous'
+      }
+    ).addTo(map);
+    baseTileLayerRef.current = baseLayer;
 
     mapInstanceRef.current = map;
     const timer = setTimeout(() => map.invalidateSize(), 250);
@@ -213,6 +221,15 @@ export function PollutionStagesView({
     observer.observe(mapContainerRef.current);
     return () => observer.disconnect();
   }, []);
+
+  // Update basemap when theme toggles
+  useEffect(() => {
+    if (!baseTileLayerRef.current) return;
+    const url = theme === 'light'
+      ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    baseTileLayerRef.current.setUrl(url);
+  }, [theme]);
 
   // Sync GIBS tile layer with selectedAnimation, currentDate, and gibsOpacity
   useEffect(() => {
@@ -548,49 +565,52 @@ export function PollutionStagesView({
     }
   }), [currentIndex, seriesA]);
 
-  const chartOptions = useMemo(() => ({
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: { duration: 180 },
-    plugins: {
-      legend: {
-        position: 'top',
-        labels: {
-          color: '#e2e8f0',
-          font: {
-            family: lang === 'ar' ? 'Cairo, sans-serif' : 'Inter, sans-serif',
-            size: 12,
-            weight: '600'
+  const chartOptions = useMemo(() => {
+    const isLight = theme === 'light';
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 180 },
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            color: isLight ? '#0f172a' : '#e2e8f0',
+            font: {
+              family: lang === 'ar' ? 'Cairo, sans-serif' : 'Inter, sans-serif',
+              size: 12,
+              weight: '600'
+            }
+          }
+        },
+        tooltip: {
+          backgroundColor: isLight ? '#0f172a' : 'rgba(15, 23, 42, 0.95)',
+          titleColor: isLight ? '#38bdf8' : '#38bdf8',
+          bodyColor: '#f8fafc',
+          borderColor: isLight ? '#cbd5e1' : '#334155',
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: isLight ? 'rgba(148, 163, 184, 0.22)' : 'rgba(51, 65, 85, 0.3)' },
+          ticks: {
+            color: isLight ? '#475569' : '#94a3b8',
+            font: { family: 'JetBrains Mono, monospace', size: 11 },
+            maxTicksLimit: 10
+          }
+        },
+        y: {
+          grid: { color: isLight ? 'rgba(148, 163, 184, 0.22)' : 'rgba(51, 65, 85, 0.3)' },
+          ticks: {
+            color: isLight ? '#475569' : '#94a3b8',
+            font: { family: 'JetBrains Mono, monospace', size: 11 },
+            callback: (val) => `${val}`
           }
         }
-      },
-      tooltip: {
-        backgroundColor: 'rgba(15, 23, 42, 0.95)',
-        titleColor: '#38bdf8',
-        bodyColor: '#f8fafc',
-        borderColor: '#334155',
-        borderWidth: 1
       }
-    },
-    scales: {
-      x: {
-        grid: { color: 'rgba(51, 65, 85, 0.3)' },
-        ticks: {
-          color: '#94a3b8',
-          font: { family: 'JetBrains Mono, monospace', size: 11 },
-          maxTicksLimit: 10
-        }
-      },
-      y: {
-        grid: { color: 'rgba(51, 65, 85, 0.3)' },
-        ticks: {
-          color: '#94a3b8',
-          font: { family: 'JetBrains Mono, monospace', size: 11 },
-          callback: (val) => `${val}`
-        }
-      }
-    }
-  }), [lang]);
+    };
+  }, [lang, theme]);
 
   // CSV Download for accessible data table
   const handleDownloadCsv = () => {

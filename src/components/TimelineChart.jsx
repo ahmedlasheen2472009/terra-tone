@@ -29,6 +29,7 @@ ChartJS.register(
 
 export function TimelineChart({
   lang = 'en',
+  theme = 'dark',
   dataA = [],
   dataB = [],
   statsA = null,
@@ -182,6 +183,8 @@ export function TimelineChart({
 
   // Chart Options
   const chartOptions = useMemo(() => {
+    const isLight = theme === 'light';
+
     return {
       responsive: true,
       maintainAspectRatio: false,
@@ -192,7 +195,7 @@ export function TimelineChart({
         legend: {
           position: 'top',
           labels: {
-            color: '#e2e8f0',
+            color: isLight ? '#0f172a' : '#e2e8f0',
             font: {
               family: lang === 'ar' ? 'Cairo, sans-serif' : 'Inter, sans-serif',
               size: 13,
@@ -204,10 +207,10 @@ export function TimelineChart({
           }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+          backgroundColor: isLight ? '#0f172a' : 'rgba(15, 23, 42, 0.95)',
           titleColor: '#38bdf8',
           bodyColor: '#f8fafc',
-          borderColor: '#334155',
+          borderColor: isLight ? '#cbd5e1' : '#334155',
           borderWidth: 1,
           padding: 12,
           displayColors: true,
@@ -220,11 +223,11 @@ export function TimelineChart({
       scales: {
         x: {
           grid: {
-            color: 'rgba(51, 65, 85, 0.35)',
-            borderColor: 'rgba(51, 65, 85, 0.6)'
+            color: isLight ? 'rgba(148, 163, 184, 0.22)' : 'rgba(51, 65, 85, 0.35)',
+            borderColor: isLight ? 'rgba(148, 163, 184, 0.45)' : 'rgba(51, 65, 85, 0.6)'
           },
           ticks: {
-            color: '#94a3b8',
+            color: isLight ? '#475569' : '#94a3b8',
             font: {
               family: 'JetBrains Mono, monospace',
               size: 12
@@ -234,11 +237,11 @@ export function TimelineChart({
         },
         y: {
           grid: {
-            color: 'rgba(51, 65, 85, 0.35)',
-            borderColor: 'rgba(51, 65, 85, 0.6)'
+            color: isLight ? 'rgba(148, 163, 184, 0.22)' : 'rgba(51, 65, 85, 0.35)',
+            borderColor: isLight ? 'rgba(148, 163, 184, 0.45)' : 'rgba(51, 65, 85, 0.6)'
           },
           ticks: {
-            color: '#94a3b8',
+            color: isLight ? '#475569' : '#94a3b8',
             font: {
               family: 'JetBrains Mono, monospace',
               size: 12
@@ -248,7 +251,7 @@ export function TimelineChart({
         }
       }
     };
-  }, [lang, t, varMeta]);
+  }, [lang, t, varMeta, theme]);
 
   const startYear = years[0] || 1990;
   const endYear = years[years.length - 1] || (new Date().getFullYear() - 1);

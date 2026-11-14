@@ -1,10 +1,12 @@
 import React from 'react';
 import { translations } from '../utils/translations';
-import { Volume2, VolumeX, Eye, HelpCircle, Info, Sparkles, Globe, MessageSquare } from 'lucide-react';
+import { Volume2, VolumeX, Eye, HelpCircle, Info, Sparkles, Globe, MessageSquare, Sun, Moon } from 'lucide-react';
 
 export function Header({
   lang = 'en',
   onToggleLang,
+  theme = 'dark',
+  onToggleTheme = () => {},
   isHighContrast,
   onToggleHighContrast,
   isLargeText,
@@ -78,6 +80,22 @@ export function Header({
           >
             {isMuted ? <VolumeX className="icon" aria-hidden="true" /> : <Volume2 className="icon" aria-hidden="true" />}
             <span className="sr-only">{isMuted ? t.unmute : t.mute}</span>
+          </button>
+
+          {/* Light / Dark Mode Toggle (Comfort for eye) */}
+          <button
+            type="button"
+            className={`btn-header-icon theme-toggle-btn ${theme === 'light' ? 'theme-light' : 'theme-dark'}`}
+            onClick={onToggleTheme}
+            aria-label={theme === 'dark' ? t.themeLight : t.themeDark}
+            title={theme === 'dark' ? t.themeLight : t.themeDark}
+          >
+            {theme === 'dark' ? (
+              <Sun className="icon icon-sun" aria-hidden="true" />
+            ) : (
+              <Moon className="icon icon-moon" aria-hidden="true" />
+            )}
+            <span className="action-tag">{theme === 'dark' ? (lang === 'ar' ? 'نهاري' : 'Light') : (lang === 'ar' ? 'ليلي' : 'Dark')}</span>
           </button>
 
           {/* High Contrast Mode */}

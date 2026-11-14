@@ -4,13 +4,16 @@
 
 export const translations = {
   en: {
-    appTitle: 'Earth Jukebox',
+    appTitle: 'Terra-Tone',
     tagline: 'NASA Earth Environmental Data Sonification & Visual Explorer',
     badgeNasa: 'NASA Space Apps',
     skipToContent: 'Skip to main content',
 
     // Nav & Top Bar
     langToggle: 'العربية',
+    themeToggle: 'Toggle Theme',
+    themeLight: 'Light Mode (Eye Comfort)',
+    themeDark: 'Dark Space Mode',
     highContrast: 'High Contrast',
     largeText: 'Large Text',
     shortcutsBtn: 'Shortcuts (H)',
@@ -129,8 +132,8 @@ export const translations = {
     downloadCsv: 'Download CSV',
 
     // About & Data Sources
-    aboutHeading: 'About The Earth Information Jukebox',
-    aboutMission: 'Earth Jukebox was built for the NASA Space Apps Challenge "The Earth Information Jukebox". It makes multi-decadal NASA Earth science data accessible to everyone, especially people who are blind, visually impaired, or neurodivergent, through real-time harmonic sonification synchronized with spatial and chart visuals.',
+    aboutHeading: 'About Terra-Tone',
+    aboutMission: 'Terra-Tone was built for the NASA Space Apps Challenge "The Earth Information Jukebox". It makes multi-decadal NASA Earth science data accessible to everyone, especially people who are blind, visually impaired, or neurodivergent, through real-time harmonic sonification synchronized with spatial and chart visuals.',
     howSonificationWorks: 'How Sonification Works:',
     sonificationExplanation: 'Data values and satellite pixel readings are mapped to pitch using a harmonious pentatonic scale (C3 to C6). In Point Mode, the pixel RGB under the map marker is extracted from the NASA GIBS satellite frame and decoded via calibrated colormaps or luminance. In Scan Mode, a sweep across 40 columns sonifies the visible geography from west to east in real time. When comparing two locations, Location A is positioned in the left stereo ear and Location B in the right stereo ear, allowing you to hear climatic divergence in stereo space. Distinct bell and chime cues alert listeners when historical records are broken.',
     dataCrediting: 'Data Sources: NASA GIBS (Global Imagery Browse Services) WMTS API and NASA POWER API (Prediction Of Worldwide Energy Resources) via NASA Langley Research Center.',
@@ -157,13 +160,16 @@ export const translations = {
   },
 
   ar: {
-    appTitle: 'إيرث جيوك بوكس (Earth Jukebox)',
-    tagline: 'المستكشف السمعي والبصري لبيانات وإطارات الأقمار الصناعية لوكالة ناسا',
+    appTitle: 'تيرا-تون (Terra-Tone)',
+    tagline: 'تحويل البيانات البيئية وصور الأقمار الصناعية لوكالة ناسا إلى صوت وموسيقى',
     badgeNasa: 'تحدي ناسا لتطبيقات الفضاء',
     skipToContent: 'الانتقال إلى المحتوى الرئيسي',
 
     // Nav & Top Bar
     langToggle: 'English',
+    themeToggle: 'تغيير السمة',
+    themeLight: 'الوضع النهاري المريح للعين',
+    themeDark: 'الوضع الليلي الكوني',
     highContrast: 'تباين عالي',
     largeText: 'خط كبير',
     shortcutsBtn: 'اختصارات لوحة المفاتيح (H)',
@@ -282,8 +288,8 @@ export const translations = {
     downloadCsv: 'تنزيل ملف CSV',
 
     // About & Data Sources
-    aboutHeading: 'حول مشروع صندوق موسيقى الأرض (Earth Jukebox)',
-    aboutMission: 'تم تصميم Earth Jukebox لتحدي ناسا لتطبيقات الفضاء "صندوق معلومات الأرض"، بهدف إتاحة بيانات علوم الأرض والصور الفضائية الصادرة عن ناسا للجميع، وخاصة المكفوفين وضعاف البصر، عبر التحويل الصوتي المتناغم والمتزامن مع الخرائط والرسوم البيانية.',
+    aboutHeading: 'حول مشروع تيرا-تون (Terra-Tone)',
+    aboutMission: 'تم تصميم Terra-Tone لتحدي ناسا لتطبيقات الفضاء "صندوق معلومات الأرض"، بهدف إتاحة بيانات علوم الأرض والصور الفضائية الصادرة عن ناسا للجميع، وخخاصة المكفوفين وضعاف البصر، عبر التحويل الصوتي المتناغم والمتزامن مع الخرائط والرسوم البيانية.',
     howSonificationWorks: 'كيف يعمل التحويل الصوتي (Sonification):',
     sonificationExplanation: 'تُحوَّل قيم البيانات وقراءات بكسلات الأقمار الصناعية إلى طبقات نغمية باستخدام السلم الموسيقي الخماسي المتناغم (من C3 حتى C6). في نمط النقطة، يتم قراءة بكسل RGB من إطار قمر ناسا الفضائي أسفل العلامة المحددة وتحويله إلى قيمة فيزيائية باستخدام خريطة الألوان المعايرة أو السطوع. وفي نمط المسح، يتم مسح 40 عموداً عبر الخريطة للاستماع لتضاريس المنطقة المعروضة كاملة. وعند مقارنة موقعين، يُوجَّه الموقع الأول للأذن اليسرى والموقع الثاني للأذن اليمنى للاستماع للاختلافات المناخية في فضاء ستيريو مجسم.',
     dataCrediting: 'مصادر البيانات: واجهة إطارات الأقمار الصناعية (NASA GIBS WMTS API) وواجهة ناسا باور (NASA POWER API) من مركز لانغلي للأبحاث التابع لناسا.',
