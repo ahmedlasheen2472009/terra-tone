@@ -148,7 +148,7 @@ export function PollutionStagesView({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const speechSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-  // Game Export States
+  // Media & Data Export States
   const [exportState, setExportState] = useState({
     active: null, // 'zip' | 'webm' | 'json' | null
     progress: null,
@@ -1505,19 +1505,19 @@ export function PollutionStagesView({
         </div>
       </section>
 
-      {/* Export for Game Card */}
-      <section className="card export-game-card" aria-labelledby="export-game-heading">
+      {/* Added Feature: Media & Data Export Card */}
+      <section className="card export-feature-card export-game-card" aria-labelledby="export-feature-heading">
         <div className="card-header">
           <div className="card-title-group">
             <Package className="section-icon text-gold" aria-hidden="true" />
             <div>
-              <h2 id="export-game-heading" className="card-title">
-                {lang === 'ar' ? 'تصدير للعبة (Export for Game)' : 'Export for Game'}
+              <h2 id="export-feature-heading" className="card-title">
+                {lang === 'ar' ? 'ميزة إضافية: تصدير الوسائط والبيانات (Export Suite)' : 'Added Feature: Media & Data Export'}
               </h2>
               <p className="card-sub">
                 {lang === 'ar'
-                  ? 'تنزيل إطارات الخريطة الحقيقية كصور PNG متسلسلة أو فيديو WebM وبيانات JSON لاستخدامها في مستويات اللعبة.'
-                  : 'Download composite satellite frames as a PNG image sequence (ZIP), WebM timelapse video, plus JSON dates & values for game integration.'}
+                  ? 'تنزيل إطارات الأقمار الصناعية الحقيقية كحزمة صور PNG متسلسلة (ZIP)، أو فيديو WebM متحرك، أو ملفات JSON للتحليل الخارجي والبحث العلمي.'
+                  : 'Download composite satellite frames as a PNG image sequence (ZIP), WebM timelapse video, or structured JSON time-series for external analysis and research.'}
               </p>
             </div>
           </div>

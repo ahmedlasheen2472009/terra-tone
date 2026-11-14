@@ -102,7 +102,7 @@ Every dataset ID, TileMatrixSet, colormap XML, and date range below was verified
 ### C. Pixel-to-Sound Pipeline & Scientific Limitations
 - **Offscreen Canvas Sampling**: Coordinates `(lat, lon)` map to Web Mercator tile `(z, y, x)` and pixel `(px, py)` loaded with `crossOrigin="anonymous"`.
 - **Colormap XML Lookup**: RGB is matched via Euclidean distance against NASA GIBS v1.3 Colormap XMLs (with Kelvin-to-Celsius conversion where applicable), or perceived luminance (`0.299R + 0.587G + 0.114B`) for true-color imagery.
-- **Game Export**: Browser-side composite export via `JSZip` (PNG sequence + `frames_metadata.json`), HTML5 `canvas.captureStream()` + `MediaRecorder` (`.webm`), and JSON time-series export.
+- **Added Feature: Media & Data Export**: Browser-side composite export via `JSZip` (PNG sequence + `frames_metadata.json`), HTML5 `canvas.captureStream()` + `MediaRecorder` (`.webm`), and JSON time-series export for scientific analysis.
 - **Limitations**: Satellite sensors cannot directly detect chemical soil toxins (heavy metals/pesticides); AOD (~50 km) is a column proxy rather than breathing-height PM2.5; true-color brightness includes clouds; optical layers (Chlorophyll-a, NDVI) can show cloud/orbital swath gaps; coarse grids (4–50 km) smooth hyper-local variations.
 
 ---

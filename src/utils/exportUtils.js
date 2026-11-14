@@ -306,7 +306,7 @@ export async function exportFramesAsZip(
   folder.file('frames_metadata.json', JSON.stringify(metadata, null, 2));
 
   const zipBlob = await zip.generateAsync({ type: 'blob' });
-  triggerBlobDownload(zipBlob, `${animation.id}_game_frames.zip`);
+  triggerBlobDownload(zipBlob, `${animation.id}_satellite_frames.zip`);
 }
 
 /**

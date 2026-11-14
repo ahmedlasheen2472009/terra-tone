@@ -2652,6 +2652,7 @@ body {
   color: var(--text-muted);
 }
 
+.export-feature-card,
 .export-game-card {
   display: flex;
   flex-direction: column;
